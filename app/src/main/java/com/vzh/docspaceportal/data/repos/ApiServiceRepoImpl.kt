@@ -177,4 +177,10 @@ class ApiServiceRepoImpl(
             }
         }
     }
+
+    override suspend fun logOut(portal: String, authKey: String) {
+        return withContext(Dispatchers.IO) {
+            apiService.logout("$portal/api/2.0/authentication/logout", "asc_auth_key=$authKey")
+        }
+    }
 }

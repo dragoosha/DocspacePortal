@@ -37,4 +37,9 @@ interface ApiServiceRepo {
         portal: String,
         authKey: String
     ): Result<FilesModel>
+
+    suspend fun logOut(
+        portal: String,
+        authKey: String
+    )
 }

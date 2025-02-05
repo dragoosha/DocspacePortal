@@ -3,6 +3,7 @@ package com.vzh.docspaceportal.data.remote
 import com.vzh.docspaceportal.data.models.AuthRequestParams
 import com.vzh.docspaceportal.data.models.dto.authDto.AuthResponseDto
 import com.vzh.docspaceportal.data.models.dto.filesDto.FilesDto
+import com.vzh.docspaceportal.data.models.dto.logoutDto.LogOutDto
 import com.vzh.docspaceportal.data.models.dto.profileDto.ProfileDto
 import retrofit2.Call
 import retrofit2.http.Body
@@ -50,4 +51,10 @@ interface ApiService {
         @Url portalUrl: String,
         @Header("Cookie") authKey: String
     ): Call<FilesDto>
+
+    @GET
+    suspend fun logout(
+        @Url portalUrl: String,
+        @Header("Cookie") authKey: String
+    ): Call<LogOutDto>
 }
