@@ -1,4 +1,4 @@
-package com.vzh.docspaceportal.data.models.dto.utils
+package com.vzh.docspaceportal.data.models.dto.authDto
 
 data class Response(
     val expires: String,
