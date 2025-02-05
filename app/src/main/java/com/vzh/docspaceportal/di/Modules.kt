@@ -4,6 +4,7 @@ import com.vzh.docspaceportal.data.remote.ApiService
 import com.vzh.docspaceportal.data.repos.ApiServiceRepoImpl
 import com.vzh.docspaceportal.domain.repos.ApiServiceRepo
 import com.vzh.docspaceportal.domain.usecase.AuthUseCase
+import com.vzh.docspaceportal.domain.usecase.GetFileByIdUseCase
 import com.vzh.docspaceportal.domain.usecase.MyDocumentsUseCase
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -21,4 +22,5 @@ val networkModule = module {
 
     factory { AuthUseCase() }
     factory { MyDocumentsUseCase() }
+    factory { GetFileByIdUseCase() }
 }

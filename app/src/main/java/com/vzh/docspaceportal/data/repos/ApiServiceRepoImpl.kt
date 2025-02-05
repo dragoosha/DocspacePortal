@@ -71,4 +71,35 @@ class ApiServiceRepoImpl(
 
         }
     }
+
+    override suspend fun getFolderFilesById(
+        id: Int,
+        portal: String,
+        authKey: String
+    ): Result<MyDocumentsModel> {
+
+        return withContext(Dispatchers.IO) {
+            val call = apiService.getFolderFilesById("$portal/api/2.0/files/$id", "asc_auth_key=$authKey")
+
+            return@withContext try {
+                val response = call.awaitResponse()
+                val model = response.body()
+
+                if (response.isSuccessful && model?.status ==0) {
+                    Result.Success(
+                        data = model.toDomainModel()
+                    )
+                } else {
+                    Result.Error(
+                        message= "Failed to fetch data: ${response.code()}"
+                    )
+                }
+            } catch (e: Exception) {
+                Result.Error(
+                    message = "Network error: ${e.message}"
+                )
+            }
+        }
+
+    }
 }
