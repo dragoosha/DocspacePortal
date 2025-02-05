@@ -21,6 +21,7 @@ interface ApiService {
 
     @GET
     suspend fun getMyFiles(
+        @Url portalUrl: String,
         @Header("Cookie") authKey: String
     ): Call<MyDocumentsDto>
 }
