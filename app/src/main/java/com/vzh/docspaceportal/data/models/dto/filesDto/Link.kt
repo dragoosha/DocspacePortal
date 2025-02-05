@@ -1,4 +1,4 @@
-package com.vzh.docspaceportal.data.models.dto.authDto
+package com.vzh.docspaceportal.data.models.dto.filesDto
 
 data class Link(
     val action: String?,
