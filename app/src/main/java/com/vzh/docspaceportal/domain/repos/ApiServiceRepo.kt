@@ -1,9 +1,9 @@
 package com.vzh.docspaceportal.domain.repos
 
-import com.vzh.docspaceportal.data.models.dto.myDocumentsDto.MyDocumentsDto
 import com.vzh.docspaceportal.domain.common.Result
 import com.vzh.docspaceportal.domain.model.AuthModel
 import com.vzh.docspaceportal.domain.model.MyDocumentsModel
+import com.vzh.docspaceportal.domain.model.ProfileModel
 
 interface ApiServiceRepo {
     suspend fun authenticateUser(
@@ -22,4 +22,9 @@ interface ApiServiceRepo {
         portal: String,
         authKey: String
     ): Result<MyDocumentsModel>
+
+    suspend fun getMyProfile(
+        portal: String,
+        authKey: String
+    ): Result<ProfileModel>
 }

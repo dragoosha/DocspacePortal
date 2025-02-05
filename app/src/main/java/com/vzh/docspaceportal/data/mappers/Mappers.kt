@@ -4,10 +4,12 @@ import com.vzh.docspaceportal.data.models.dto.authDto.AuthResponseDto
 import com.vzh.docspaceportal.data.models.dto.myDocumentsDto.File
 import com.vzh.docspaceportal.data.models.dto.myDocumentsDto.Folder
 import com.vzh.docspaceportal.data.models.dto.myDocumentsDto.MyDocumentsDto
+import com.vzh.docspaceportal.data.models.dto.profileDto.ProfileDto
 import com.vzh.docspaceportal.domain.model.AuthModel
 import com.vzh.docspaceportal.domain.model.FileModel
 import com.vzh.docspaceportal.domain.model.FolderModel
 import com.vzh.docspaceportal.domain.model.MyDocumentsModel
+import com.vzh.docspaceportal.domain.model.ProfileModel
 
 fun AuthResponseDto.toDomainModel() : AuthModel {
     return AuthModel(
@@ -23,6 +25,14 @@ fun MyDocumentsDto.toDomainModel(): MyDocumentsModel {
     )
 }
 
+fun ProfileDto.toDomainModel(): ProfileModel {
+    return ProfileModel(
+        name = this.response.displayName,
+        email = this.response.email,
+        imageUrl = this.response.avatarMax
+    )
+}
+
 fun File.toDomainModel() : FileModel {
     return FileModel(
         title = this.title
@@ -35,3 +45,4 @@ fun Folder.toDomainModel() : FolderModel {
         folderId = this.id
     )
 }
+
