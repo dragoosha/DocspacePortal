@@ -6,6 +6,7 @@ import com.vzh.docspaceportal.data.remote.ApiService
 import com.vzh.docspaceportal.domain.common.Result
 import com.vzh.docspaceportal.domain.model.AuthModel
 import com.vzh.docspaceportal.domain.model.MyDocumentsModel
+import com.vzh.docspaceportal.domain.model.ProfileModel
 import com.vzh.docspaceportal.domain.repos.ApiServiceRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -101,5 +102,29 @@ class ApiServiceRepoImpl(
             }
         }
 
+    }
+
+    override suspend fun getMyProfile(portal: String, authKey: String): Result<ProfileModel> {
+        return withContext(Dispatchers.IO) {
+            val call = apiService.getMyProfile("$portal/api/2.0/people/@self", "asc_auth_key=$authKey" )
+            return@withContext try {
+                val response = call.awaitResponse()
+                val model = response.body()
+
+                if (response.isSuccessful && model?.status ==0) {
+                    Result.Success(
+                        data = model.toDomainModel()
+                    )
+                } else {
+                    Result.Error(
+                        message= "Failed to fetch data: ${response.code()}"
+                    )
+                }
+            } catch (e: Exception) {
+                Result.Error(
+                    message = "Network error: ${e.message}"
+                )
+            }
+        }
     }
 }
