@@ -16,4 +16,10 @@ interface ApiServiceRepo {
         portal: String,
         authKey: String
     ): Result<MyDocumentsModel>
+
+    suspend fun getFolderFilesById(
+        id: Int,
+        portal: String,
+        authKey: String
+    ): Result<MyDocumentsModel>
 }
