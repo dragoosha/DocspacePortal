@@ -46,9 +46,9 @@ class ApiServiceRepoImpl(
         }
     }
 
-    override suspend fun getMyFiles(authKey: String): Result<MyDocumentsModel> {
+    override suspend fun getMyFiles(portal: String, authKey: String): Result<MyDocumentsModel> {
         return withContext(Dispatchers.IO) {
-            val call = apiService.getMyFiles("asc_auth_key=$authKey")
+            val call = apiService.getMyFiles("$portal/api/2.0/files/@my","asc_auth_key=$authKey")
 
             return@withContext try {
                 val response = call.awaitResponse()

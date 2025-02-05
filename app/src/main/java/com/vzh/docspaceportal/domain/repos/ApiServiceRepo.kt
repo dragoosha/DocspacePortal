@@ -13,6 +13,7 @@ interface ApiServiceRepo {
     ): Result<AuthModel>
 
     suspend fun getMyFiles(
+        portal: String,
         authKey: String
     ): Result<MyDocumentsModel>
 }

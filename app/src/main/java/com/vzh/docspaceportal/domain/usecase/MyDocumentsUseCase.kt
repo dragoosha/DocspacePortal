@@ -9,7 +9,7 @@ import org.koin.core.component.inject
 class MyDocumentsUseCase: KoinComponent {
     private val repo: ApiServiceRepo by inject()
 
-    suspend operator fun invoke(token: String): Result<MyDocumentsModel> {
-        return repo.getMyFiles(token)
+    suspend operator fun invoke(portal: String, token: String): Result<MyDocumentsModel> {
+        return repo.getMyFiles(portal, token)
     }
 }
