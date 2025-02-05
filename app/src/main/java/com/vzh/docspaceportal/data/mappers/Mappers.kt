@@ -13,23 +13,23 @@ import com.vzh.docspaceportal.domain.model.ProfileModel
 
 fun AuthResponseDto.toDomainModel() : AuthModel {
     return AuthModel(
-        token = this.response.token,
-        expires = this.response.expires
+        token = this.response?.token ?: "",
+        expires = this.response?.expires?: ""
     )
 }
 
 fun FilesDto.toDomainModel(): FilesModel {
     return FilesModel(
-        files = this.response.files.map{ it.toDomainModel() },
-        folders = this.response.folders.map { it.toDomainModel() }
+        files = this.response?.files?.map{ it.toDomainModel() },
+        folders = this.response?.folders?.map { it.toDomainModel() }
     )
 }
 
 fun ProfileDto.toDomainModel(): ProfileModel {
     return ProfileModel(
-        name = this.response.displayName,
-        email = this.response.email,
-        imageUrl = this.response.avatarMax
+        name = this.response?.displayName ?: "",
+        email = this.response?.email?: "",
+        imageUrl = this.response?.avatarMax?: ""
     )
 }
 

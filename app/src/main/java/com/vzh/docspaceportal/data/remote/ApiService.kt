@@ -44,4 +44,10 @@ interface ApiService {
         @Url portalUrl: String,
         @Header("Cookie") authKey: String
     ): Call<FilesDto>
+
+    @GET
+    suspend fun getMyTrash(
+        @Url portalUrl: String,
+        @Header("Cookie") authKey: String
+    ): Call<FilesDto>
 }

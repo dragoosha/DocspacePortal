@@ -32,4 +32,9 @@ interface ApiServiceRepo {
         portal: String,
         authKey: String
     ): Result<FilesModel>
+
+    suspend fun getMyTrash(
+        portal: String,
+        authKey: String
+    ): Result<FilesModel>
 }

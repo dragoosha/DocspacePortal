@@ -152,4 +152,29 @@ class ApiServiceRepoImpl(
             }
         }
     }
+
+    override suspend fun getMyTrash(portal: String, authKey: String): Result<FilesModel> {
+        return withContext(Dispatchers.IO) {
+            val call = apiService.getMyTrash("$portal/api/2.0/files/@trash", "asc_auth_key=$authKey")
+
+            return@withContext try {
+                val response = call.awaitResponse()
+                val model = response.body()
+
+                if (response.isSuccessful && model?.status ==0) {
+                    Result.Success(
+                        data = model.toDomainModel()
+                    )
+                } else {
+                    Result.Error(
+                        message= "Failed to fetch data: ${response.code()}"
+                    )
+                }
+            } catch (e: Exception) {
+                Result.Error(
+                    message = "Network error: ${e.message}"
+                )
+            }
+        }
+    }
 }
