@@ -1,6 +1,6 @@
-package com.vzh.docspaceportal.data.models.dto.myDocumentsDto
+package com.vzh.docspaceportal.data.models.dto.filesDto
 
-data class Folder(
+data class Current(
     val access: Int,
     val canShare: Boolean,
     val created: String,

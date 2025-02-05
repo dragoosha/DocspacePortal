@@ -1,6 +1,6 @@
-package com.vzh.docspaceportal.data.models.dto.myDocumentsDto
+package com.vzh.docspaceportal.data.models.dto.filesDto
 
-data class MyDocumentsDto(
+data class FilesDto(
     val count: Int,
     val links: List<Link>,
     val response: Response,

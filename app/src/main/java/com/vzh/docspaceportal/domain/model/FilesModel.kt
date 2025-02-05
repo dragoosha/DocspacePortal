@@ -1,6 +1,6 @@
 package com.vzh.docspaceportal.domain.model
 
-data class MyDocumentsModel(
+data class FilesModel(
     val files: List<FileModel>,
     val folders: List<FolderModel>
 )

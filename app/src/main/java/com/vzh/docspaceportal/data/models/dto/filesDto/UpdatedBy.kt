@@ -1,4 +1,4 @@
-package com.vzh.docspaceportal.data.models.dto.myDocumentsDto
+package com.vzh.docspaceportal.data.models.dto.filesDto
 
 data class UpdatedBy(
     val avatar: String,

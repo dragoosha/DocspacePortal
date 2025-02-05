@@ -2,7 +2,7 @@ package com.vzh.docspaceportal.data.remote
 
 import com.vzh.docspaceportal.data.models.AuthRequestParams
 import com.vzh.docspaceportal.data.models.dto.authDto.AuthResponseDto
-import com.vzh.docspaceportal.data.models.dto.myDocumentsDto.MyDocumentsDto
+import com.vzh.docspaceportal.data.models.dto.filesDto.FilesDto
 import com.vzh.docspaceportal.data.models.dto.profileDto.ProfileDto
 import retrofit2.Call
 import retrofit2.http.Body
@@ -24,18 +24,24 @@ interface ApiService {
     suspend fun getMyFiles(
         @Url portalUrl: String,
         @Header("Cookie") authKey: String
-    ): Call<MyDocumentsDto>
+    ): Call<FilesDto>
 
 
     @GET
     suspend fun getFolderFilesById(
         @Url portalUrl: String,
         @Header("Cookie") authKey: String
-    ): Call<MyDocumentsDto>
+    ): Call<FilesDto>
 
     @GET
     suspend fun getMyProfile(
         @Url portalUrl: String,
         @Header("Cookie") authKey: String
     ): Call<ProfileDto>
+
+    @GET
+    suspend fun getMyRooms(
+        @Url portalUrl: String,
+        @Header("Cookie") authKey: String
+    ): Call<FilesDto>
 }
