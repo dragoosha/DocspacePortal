@@ -14,7 +14,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,8 +35,12 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.vzh.docspaceportal.R
 import com.vzh.docspaceportal.presentation.common.components.CustomButton
+import com.vzh.docspaceportal.presentation.common.components.LoadingIndicator
+import com.vzh.docspaceportal.presentation.common.components.NoInternetStub
 import com.vzh.docspaceportal.presentation.common.navigation.AppRoute
+import com.vzh.docspaceportal.presentation.common.utils.hasNetwork
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -40,19 +49,52 @@ fun ProfileScreen(
     navController: NavController
 ) {
 
-    val viewModel: ProfileScreenViewModel = koinViewModel()
-    val state: ProfileUiState = viewModel.profileUiState.collectAsState().value
 
-    ProfileLayout(
-        state = state.uiItem,
-        onButtonClicked = {
-            viewModel.logOut()
-            navController.navigate(AppRoute.Auth.route) {
-                popUpTo(AppRoute.Profile.route) {inclusive = true}
+    val context = LocalContext.current
+    var isInternetAvailable by rememberSaveable { mutableStateOf(true) }
+    var isLoading by rememberSaveable { mutableStateOf(true) }
+
+
+    LaunchedEffect(context) {
+        delay(2000)
+        isInternetAvailable = context.hasNetwork()
+        isLoading = false
+    }
+
+    if (isLoading) {
+        LoadingIndicator()
+        return
+    }
+
+    if (!isInternetAvailable) {
+        NoInternetStub(
+            onRetryClicked = {
+                isLoading = true
+                isInternetAvailable = context.hasNetwork()
+                isLoading = false
             }
-        }
-    )
+        )
+        return
+    }else {
+        val viewModel: ProfileScreenViewModel = koinViewModel()
+        val state: ProfileUiState = viewModel.profileUiState.collectAsState().value
 
+        ProfileLayout(
+            state = state.uiItem,
+            onButtonClicked = {
+                if (context.hasNetwork()) {
+                    viewModel.logOut()
+                    navController.navigate(AppRoute.Auth.route) {
+                        popUpTo(AppRoute.Profile.route) {inclusive = true}
+                    }
+                } else {
+                    isInternetAvailable = false
+                }
+
+            }
+        )
+
+    }
 }
 
 @Composable
