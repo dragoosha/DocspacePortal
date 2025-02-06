@@ -8,4 +8,8 @@
     <string name="correct_portal">Incorrect portal format</string>
     <string name="correct_email">Incorrect email</string>
     <string name="correct_password">Password should be at least 8 symbols</string>
+    <string name="documents">Documents</string>
+    <string name="rooms">Rooms</string>
+    <string name="trash">Trash</string>
+    <string name="profile">Profile</string>
 </resources>
