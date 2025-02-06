@@ -1,5 +1,6 @@
 package com.vzh.docspaceportal.presentation.screens.profileScreen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,12 +20,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
+import coil3.request.CachePolicy
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import com.vzh.docspaceportal.R
 import com.vzh.docspaceportal.presentation.common.components.CustomButton
+import com.vzh.docspaceportal.presentation.common.navigation.AppRoute
+import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -37,9 +44,13 @@ fun ProfileScreen(
     val state: ProfileUiState = viewModel.profileUiState.collectAsState().value
 
     ProfileLayout(
-        modifier = modifier,
         state = state.uiItem,
-        onButtonClicked = {}
+        onButtonClicked = {
+            viewModel.logOut()
+            navController.navigate(AppRoute.Auth.route) {
+                popUpTo(AppRoute.Profile.route) {inclusive = true}
+            }
+        }
     )
 
 }
@@ -67,15 +78,15 @@ fun ProfileLayout(
 
         Spacer(modifier = modifier.height(50.dp))
 
-
-        Box(modifier = modifier.size(100.dp).background(color = Color.Gray).clip(shape = RoundedCornerShape(20.dp))){
-            AsyncImage(
-                model = state.imageUrl,
-                contentDescription = null,
-                modifier = modifier.size(100.dp).clip(CircleShape),
-                contentScale = ContentScale.Crop
-            )
-        }
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(state.imageUrl)
+                .crossfade(true)
+                .build(),
+            contentDescription = null,
+            modifier = Modifier.size(100.dp).clip(CircleShape),
+            contentScale = ContentScale.Crop,
+        )
 
 
         Spacer(modifier = Modifier.height(16.dp))
