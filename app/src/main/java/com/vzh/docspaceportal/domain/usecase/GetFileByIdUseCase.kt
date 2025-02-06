@@ -9,7 +9,7 @@ import org.koin.core.component.inject
 class GetFileByIdUseCase: KoinComponent {
     private val repo: ApiServiceRepo by inject()
 
-    suspend operator fun invoke(portal: String, token: String): Result<FilesModel> {
-        return repo.getMyFiles(portal, token)
+    suspend operator fun invoke(portal: String, token: String, id: Int): Result<FilesModel> {
+        return repo.getFolderFilesById(id, portal, token)
     }
 }

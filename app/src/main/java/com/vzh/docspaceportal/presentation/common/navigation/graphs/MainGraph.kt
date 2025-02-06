@@ -5,11 +5,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.vzh.docspaceportal.presentation.common.navigation.AppRoute
 import com.vzh.docspaceportal.presentation.common.navigation.bottomBar.BottomNavigationBar
 import com.vzh.docspaceportal.presentation.screens.documentsScreen.DocumentsScreen
+import com.vzh.docspaceportal.presentation.screens.folderScreen.FolderScreen
 import com.vzh.docspaceportal.presentation.screens.profileScreen.ProfileScreen
 import com.vzh.docspaceportal.presentation.screens.roomsScreen.RoomsScreen
 import com.vzh.docspaceportal.presentation.screens.trashScreen.TrashScreen
@@ -58,6 +61,23 @@ fun NavGraphBuilder.mainNavGraph(navController: NavController) {
                     navController = navController
                 )
             }
+        }
+
+        composable(
+            route = AppRoute.Folder.route,
+            arguments = listOf(navArgument("folderId") { type = NavType.IntType }, navArgument("title") {type = NavType.StringType})
+        ) { backStackEntry ->
+            Scaffold(
+                bottomBar = { BottomNavigationBar(navController)}
+            ) { innerPadding ->
+                FolderScreen(
+                    modifier = Modifier.padding(innerPadding),
+                    navController = navController,
+                    folderId = backStackEntry.arguments?.getInt("folderId") ?: 0,
+                    title = backStackEntry.arguments?.getString("title")  ?: ""
+                )
+            }
+
         }
     }
 }

@@ -37,7 +37,6 @@ fun ProfileScreen(
     val state: ProfileUiState = viewModel.profileUiState.collectAsState().value
 
     ProfileLayout(
-        modifier = modifier,
         state = state.uiItem,
         onButtonClicked = {}
     )

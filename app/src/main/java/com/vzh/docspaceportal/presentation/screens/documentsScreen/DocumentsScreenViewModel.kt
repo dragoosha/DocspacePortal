@@ -9,7 +9,7 @@ import com.vzh.docspaceportal.presentation.common.models.FilesUiItem
 import com.vzh.docspaceportal.presentation.common.models.FolderUi
 import com.vzh.docspaceportal.presentation.common.utils.StatefulViewModel
 import com.vzh.docspaceportal.presentation.common.utils.UserSettings
-import com.vzh.docspaceportal.presentation.common.utils.toUiDocuments
+import com.vzh.docspaceportal.presentation.common.utils.toUiItem
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
@@ -39,7 +39,7 @@ class DocumentsScreenViewModel(
                         copy(errorMessage = result.message)
                     }
                     is Result.Success -> {
-                        copy(uiItem = result.data?.toUiDocuments() ?: DocumentsUiItem())
+                        copy(uiItem = result.data?.toUiItem(::DocumentsUiItem) ?: DocumentsUiItem())
                     }
                 }
             }
