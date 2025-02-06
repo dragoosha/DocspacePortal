@@ -72,5 +72,9 @@ dependencies {
     implementation(libs.androidx.datastore.core)
 
     //Serialization
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+    implementation(libs.kotlinx.serialization.json)
+
+    //Coil
+    implementation(libs.coil.compose)
+
 }

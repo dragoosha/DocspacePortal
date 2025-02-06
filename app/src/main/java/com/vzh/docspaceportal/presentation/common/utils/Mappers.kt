@@ -3,9 +3,11 @@ package com.vzh.docspaceportal.presentation.common.utils
 import com.vzh.docspaceportal.domain.model.FileModel
 import com.vzh.docspaceportal.domain.model.FilesModel
 import com.vzh.docspaceportal.domain.model.FolderModel
+import com.vzh.docspaceportal.domain.model.ProfileModel
 import com.vzh.docspaceportal.presentation.common.models.FileUi
 import com.vzh.docspaceportal.presentation.common.models.FolderUi
 import com.vzh.docspaceportal.presentation.screens.documentsScreen.DocumentsUiItem
+import com.vzh.docspaceportal.presentation.screens.profileScreen.ProfileUiItem
 import com.vzh.docspaceportal.presentation.screens.roomsScreen.RoomsUiItem
 import com.vzh.docspaceportal.presentation.screens.trashScreen.TrashUiItem
 
@@ -40,5 +42,13 @@ fun FolderModel.toUi(): FolderUi {
 fun FileModel.toUi(): FileUi {
     return FileUi(
         title = title ?: ""
+    )
+}
+
+fun ProfileModel.toProfileUi(portal: String) : ProfileUiItem {
+    return ProfileUiItem(
+        name = name,
+        imageUrl = portal + imageUrl,
+        email = email
     )
 }
