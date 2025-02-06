@@ -12,6 +12,7 @@ import com.vzh.docspaceportal.domain.usecase.GetTrashUseCase
 import com.vzh.docspaceportal.domain.usecase.LogOutUseCase
 import com.vzh.docspaceportal.domain.usecase.MyDocumentsUseCase
 import com.vzh.docspaceportal.presentation.common.utils.UserSettingsSerializer
+import com.vzh.docspaceportal.presentation.screens.documentsScreen.DocumentsScreenViewModel
 import com.vzh.docspaceportal.presentation.screens.loginScreen.LoginScreenViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
@@ -41,6 +42,7 @@ val networkModule = module {
 
 val appModule = module {
     viewModel { LoginScreenViewModel(get(), get()) }
+    viewModel { DocumentsScreenViewModel(get(), get()) }
 
     single {
         DataStoreFactory.create(
