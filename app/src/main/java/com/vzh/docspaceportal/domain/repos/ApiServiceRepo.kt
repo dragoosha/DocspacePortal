@@ -6,6 +6,7 @@ import com.vzh.docspaceportal.domain.model.FilesModel
 import com.vzh.docspaceportal.domain.model.ProfileModel
 
 interface ApiServiceRepo {
+
     suspend fun authenticateUser(
         portal: String,
         email: String,

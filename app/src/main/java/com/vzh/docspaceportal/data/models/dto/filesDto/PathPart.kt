@@ -1,6 +1,8 @@
 package com.vzh.docspaceportal.data.models.dto.filesDto
 
+import com.google.gson.annotations.SerializedName
+
 data class PathPart(
-    val id: Int?,
-    val title: String?
+    @SerializedName("id") val id: Int?,
+    @SerializedName("title") val title: String?
 )

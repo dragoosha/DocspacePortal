@@ -6,6 +6,7 @@ import com.vzh.docspaceportal.data.models.dto.filesDto.FilesDto
 import com.vzh.docspaceportal.data.models.dto.logoutDto.LogOutDto
 import com.vzh.docspaceportal.data.models.dto.profileDto.ProfileDto
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -18,43 +19,43 @@ interface ApiService {
     suspend fun authenticateUser(
         @Url portalUrl: String,
         @Body request: AuthRequestParams
-    ): Call<AuthResponseDto>
+    ): Response<AuthResponseDto>
 
 
     @GET
     suspend fun getMyFiles(
         @Url portalUrl: String,
         @Header("Cookie") authKey: String
-    ): Call<FilesDto>
+    ): Response<FilesDto>
 
 
     @GET
     suspend fun getFolderFilesById(
         @Url portalUrl: String,
         @Header("Cookie") authKey: String
-    ): Call<FilesDto>
+    ): Response<FilesDto>
 
     @GET
     suspend fun getMyProfile(
         @Url portalUrl: String,
         @Header("Cookie") authKey: String
-    ): Call<ProfileDto>
+    ): Response<ProfileDto>
 
     @GET
     suspend fun getMyRooms(
         @Url portalUrl: String,
         @Header("Cookie") authKey: String
-    ): Call<FilesDto>
+    ): Response<FilesDto>
 
     @GET
     suspend fun getMyTrash(
         @Url portalUrl: String,
         @Header("Cookie") authKey: String
-    ): Call<FilesDto>
+    ): Response<FilesDto>
 
     @GET
     suspend fun logout(
         @Url portalUrl: String,
         @Header("Cookie") authKey: String
-    ): Call<LogOutDto>
+    ): Response<LogOutDto>
 }

@@ -28,6 +28,7 @@ import java.io.File
 val networkModule = module {
     single {
         Retrofit.Builder()
+            .baseUrl("http://localhost/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)

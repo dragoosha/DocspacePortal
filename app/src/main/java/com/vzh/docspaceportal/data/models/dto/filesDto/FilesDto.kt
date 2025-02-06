@@ -1,9 +1,11 @@
 package com.vzh.docspaceportal.data.models.dto.filesDto
 
+import com.google.gson.annotations.SerializedName
+
 data class FilesDto(
-    val count: Int?,
-    val links: List<Link>?,
-    val response: Response?,
-    val status: Int?,
-    val statusCode: Int?
+    @SerializedName("count") val count: Int?,
+    @SerializedName("links") val links: List<Link>?,
+    @SerializedName("response") val response: Response?,
+    @SerializedName("status") val status: Int?,
+    @SerializedName("statusCode") val statusCode: Int?
 )
