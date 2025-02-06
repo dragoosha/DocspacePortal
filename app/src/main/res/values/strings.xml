@@ -13,4 +13,6 @@
     <string name="trash">Trash</string>
     <string name="profile">Profile</string>
     <string name="logout">Logout</string>
+    <string name="check_credits">No user found with these credits</string>
+    <string name="unknown_error">Unknown error, try again later</string>
 </resources>

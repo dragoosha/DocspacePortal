@@ -41,8 +41,8 @@ fun LoginScreen(
         controller = viewModel,
         onButtonLoginClicked = {
             viewModel.validateAndLogin(context)
-            viewModel.signUp()
-        }
+        },
+        errorMessage = state.authErrorMessage
     )
 
     LaunchedEffect(key1 = state.authenticationSucceed){
@@ -59,7 +59,8 @@ fun LoginLayout(
     modifier: Modifier = Modifier,
     state: LoginUiItem,
     controller: LoginScreenViewModel,
-    onButtonLoginClicked: () -> Unit
+    onButtonLoginClicked: () -> Unit,
+    errorMessage: String? = null
 ) {
     Column(
         modifier = modifier
@@ -74,6 +75,14 @@ fun LoginLayout(
             style = MaterialTheme.typography.titleLarge,
             maxLines = 1
         )
+
+        if (errorMessage != null) {
+            Text(
+                text = errorMessage,
+                color = Color.Red,
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
 
         Spacer(modifier = modifier.height(20.dp))
 
