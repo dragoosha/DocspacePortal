@@ -1,15 +1,17 @@
 package com.vzh.docspaceportal.data.models.dto.filesDto
 
+import com.google.gson.annotations.SerializedName
+
 data class ViewAccessibility(
-    val CanConvert: Boolean?,
-    val CoAuhtoring: Boolean?,
-    val ImageView: Boolean?,
-    val MediaView: Boolean?,
-    val MustConvert: Boolean?,
-    val WebComment: Boolean?,
-    val WebCustomFilterEditing: Boolean?,
-    val WebEdit: Boolean?,
-    val WebRestrictedEditing: Boolean?,
-    val WebReview: Boolean?,
-    val WebView: Boolean?
+    @SerializedName("CanConvert") val CanConvert: Boolean?,
+    @SerializedName("CoAuhtoring") val CoAuhtoring: Boolean?,
+    @SerializedName("ImageView") val ImageView: Boolean?,
+    @SerializedName("MediaView") val MediaView: Boolean?,
+    @SerializedName("MustConvert") val MustConvert: Boolean?,
+    @SerializedName("WebComment") val WebComment: Boolean?,
+    @SerializedName("WebCustomFilterEditing") val WebCustomFilterEditing: Boolean?,
+    @SerializedName("WebEdit") val WebEdit: Boolean?,
+    @SerializedName("WebRestrictedEditing") val WebRestrictedEditing: Boolean?,
+    @SerializedName("WebReview") val WebReview: Boolean?,
+    @SerializedName("WebView") val WebView: Boolean?
 )

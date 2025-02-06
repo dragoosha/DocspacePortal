@@ -33,7 +33,6 @@ class LoginScreenViewModel(
                     loginState.value.uiItem.email,
                     loginState.value.uiItem.password
                 )
-
                 updateState {
                     when (result) {
                         is Result.Success -> {
@@ -66,7 +65,7 @@ class LoginScreenViewModel(
                     copy(
                         isAuthenticating = false,
                         authenticationSucceed = false,
-                        authErrorMessage = e.message ?: "Unexpected Error"
+                        authErrorMessage = e.message ?: ""
                     )
                 }
             }

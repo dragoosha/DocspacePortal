@@ -1,6 +1,8 @@
 package com.vzh.docspaceportal.data.models
 
+import com.google.gson.annotations.SerializedName
+
 data class AuthRequestParams(
-    val userName: String,
-    val password: String
+    @SerializedName("userName") val userName: String,
+    @SerializedName("password") val password: String
 )

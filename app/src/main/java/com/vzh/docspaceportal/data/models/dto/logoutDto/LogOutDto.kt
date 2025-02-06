@@ -1,8 +1,10 @@
 package com.vzh.docspaceportal.data.models.dto.logoutDto
 
+import com.google.gson.annotations.SerializedName
+
 data class LogOutDto(
-    val count: Int,
-    val links: List<Link>,
-    val status: Int,
-    val statusCode: Int
+    @SerializedName("count") val count: Int,
+    @SerializedName("links") val links: List<Link>,
+    @SerializedName("status") val status: Int,
+    @SerializedName("statusCode") val statusCode: Int
 )

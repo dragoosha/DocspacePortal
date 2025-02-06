@@ -10,7 +10,6 @@ import com.vzh.docspaceportal.domain.model.ProfileModel
 import com.vzh.docspaceportal.domain.repos.ApiServiceRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.awaitResponse
 
 class ApiServiceRepoImpl(
     private val apiService: ApiService
@@ -23,11 +22,9 @@ class ApiServiceRepoImpl(
     ): Result<AuthModel> {
         return withContext(Dispatchers.IO) {
             val requestParams = AuthRequestParams(email, password)
-
-            val call = apiService.authenticateUser("$portal/api/2.0/authentication", requestParams)
+            val response = apiService.authenticateUser("$portal/api/2.0/authentication", requestParams)
 
             try {
-                val response = call.awaitResponse()
                 val model = response.body()
                 if (response.isSuccessful && model?.status == 0) {
                     Result.Success(
@@ -49,10 +46,9 @@ class ApiServiceRepoImpl(
 
     override suspend fun getMyFiles(portal: String, authKey: String): Result<FilesModel> {
         return withContext(Dispatchers.IO) {
-            val call = apiService.getMyFiles("$portal/api/2.0/files/@my","asc_auth_key=$authKey")
+            val response = apiService.getMyFiles("$portal/api/2.0/files/@my","asc_auth_key=$authKey")
 
             return@withContext try {
-                val response = call.awaitResponse()
                 val model = response.body()
 
                 if (response.isSuccessful && model?.status == 0) {
@@ -80,10 +76,9 @@ class ApiServiceRepoImpl(
     ): Result<FilesModel> {
 
         return withContext(Dispatchers.IO) {
-            val call = apiService.getFolderFilesById("$portal/api/2.0/files/$id", "asc_auth_key=$authKey")
+            val response = apiService.getFolderFilesById("$portal/api/2.0/files/$id", "asc_auth_key=$authKey")
 
             return@withContext try {
-                val response = call.awaitResponse()
                 val model = response.body()
 
                 if (response.isSuccessful && model?.status ==0) {
@@ -106,9 +101,9 @@ class ApiServiceRepoImpl(
 
     override suspend fun getMyProfile(portal: String, authKey: String): Result<ProfileModel> {
         return withContext(Dispatchers.IO) {
-            val call = apiService.getMyProfile("$portal/api/2.0/people/@self", "asc_auth_key=$authKey" )
+            val response = apiService.getMyProfile("$portal/api/2.0/people/@self", "asc_auth_key=$authKey" )
+
             return@withContext try {
-                val response = call.awaitResponse()
                 val model = response.body()
 
                 if (response.isSuccessful && model?.status ==0) {
@@ -130,10 +125,9 @@ class ApiServiceRepoImpl(
 
     override suspend fun getMyRooms(portal: String, authKey: String): Result<FilesModel> {
         return withContext(Dispatchers.IO) {
-            val call = apiService.getMyRooms("$portal/api/2.0/files/rooms", "asc_auth_key=$authKey")
+            val response = apiService.getMyRooms("$portal/api/2.0/files/rooms", "asc_auth_key=$authKey")
 
             return@withContext try {
-                val response = call.awaitResponse()
                 val model = response.body()
 
                 if (response.isSuccessful && model?.status ==0) {
@@ -155,10 +149,9 @@ class ApiServiceRepoImpl(
 
     override suspend fun getMyTrash(portal: String, authKey: String): Result<FilesModel> {
         return withContext(Dispatchers.IO) {
-            val call = apiService.getMyTrash("$portal/api/2.0/files/@trash", "asc_auth_key=$authKey")
+            val response = apiService.getMyTrash("$portal/api/2.0/files/@trash", "asc_auth_key=$authKey")
 
             return@withContext try {
-                val response = call.awaitResponse()
                 val model = response.body()
 
                 if (response.isSuccessful && model?.status ==0) {
