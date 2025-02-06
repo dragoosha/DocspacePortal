@@ -18,7 +18,7 @@ fun AppNavigation(
 
     NavHost(
         navController = navController,
-        startDestination = AppRoute.Login.route
+        startDestination = AppRoute.Splash.route
     ) {
         authNavGraph(navController)
         mainNavGraph(navController)

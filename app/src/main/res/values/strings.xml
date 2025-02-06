@@ -12,4 +12,5 @@
     <string name="rooms">Rooms</string>
     <string name="trash">Trash</string>
     <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
 </resources>
