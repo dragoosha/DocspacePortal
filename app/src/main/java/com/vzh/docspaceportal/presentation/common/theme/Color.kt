@@ -1,4 +1,4 @@
-package com.vzh.docspaceportal.ui.theme
+package com.vzh.docspaceportal.presentation.common.theme
 
 import androidx.compose.ui.graphics.Color
 
