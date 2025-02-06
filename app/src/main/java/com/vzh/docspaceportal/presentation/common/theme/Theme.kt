@@ -16,7 +16,8 @@ private val DarkColorScheme = darkColorScheme(
     secondary = PurpleGrey80,
     tertiary = Pink80,
     background = Color(0xFFFFFBFE),
-    primaryContainer = Color(0xFFC2C2C2)
+    primaryContainer = Color(0xFFC2C2C2),
+    onPrimary = Color.White
 
 )
 
@@ -25,7 +26,8 @@ private val LightColorScheme = lightColorScheme(
     secondary = PurpleGrey40,
     tertiary = Pink40,
     background = Color(0xFFFFFBFE),
-    primaryContainer = Color(0xFFC2C2C2)
+    primaryContainer = Color(0xFFC2C2C2),
+    onPrimary = Color.Black
 )
 
 @Composable
