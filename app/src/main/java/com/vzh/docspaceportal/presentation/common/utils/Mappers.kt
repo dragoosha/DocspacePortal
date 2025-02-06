@@ -5,30 +5,14 @@ import com.vzh.docspaceportal.domain.model.FilesModel
 import com.vzh.docspaceportal.domain.model.FolderModel
 import com.vzh.docspaceportal.domain.model.ProfileModel
 import com.vzh.docspaceportal.presentation.common.models.FileUi
+import com.vzh.docspaceportal.presentation.common.models.FilesUiItem
 import com.vzh.docspaceportal.presentation.common.models.FolderUi
-import com.vzh.docspaceportal.presentation.screens.documentsScreen.DocumentsUiItem
 import com.vzh.docspaceportal.presentation.screens.profileScreen.ProfileUiItem
-import com.vzh.docspaceportal.presentation.screens.roomsScreen.RoomsUiItem
-import com.vzh.docspaceportal.presentation.screens.trashScreen.TrashUiItem
 
-fun FilesModel.toUiDocuments() : DocumentsUiItem {
-    return DocumentsUiItem(
-        folders = this.folders?.map { it.toUi() },
-        files = this.files?.map { it.toUi() }
-    )
-}
-
-fun FilesModel.toUiTrash() : TrashUiItem {
-    return TrashUiItem(
-        folders = this.folders?.map { it.toUi() },
-        files = this.files?.map { it.toUi() }
-    )
-}
-
-fun FilesModel.toUiRooms() : RoomsUiItem {
-    return RoomsUiItem(
-        folders = this.folders?.map { it.toUi() },
-        files = this.files?.map { it.toUi() }
+inline fun <reified T : FilesUiItem> FilesModel.toUiItem(factory: (List<FolderUi>?, List<FileUi>?) -> T): T {
+    return factory(
+        this.folders?.map { it.toUi() },
+        this.files?.map { it.toUi() }
     )
 }
 

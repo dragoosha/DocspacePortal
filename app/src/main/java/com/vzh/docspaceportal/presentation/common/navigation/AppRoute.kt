@@ -7,8 +7,12 @@ sealed class AppRoute(val route: String) {
 
     object Login : AppRoute("auth/login")
 
+
+
     object Documents: AppRoute("main/documents")
     object Rooms: AppRoute("main/rooms")
     object Trash: AppRoute("main/trash")
     object Profile: AppRoute("main/profile")
+
+    object Folder: AppRoute("main/{folderId}/{title}")
 }

@@ -13,6 +13,8 @@ import com.vzh.docspaceportal.domain.usecase.LogOutUseCase
 import com.vzh.docspaceportal.domain.usecase.MyDocumentsUseCase
 import com.vzh.docspaceportal.presentation.common.utils.UserSettingsSerializer
 import com.vzh.docspaceportal.presentation.screens.documentsScreen.DocumentsScreenViewModel
+import com.vzh.docspaceportal.presentation.screens.folderScreen.FolderScreen
+import com.vzh.docspaceportal.presentation.screens.folderScreen.FolderScreenViewModel
 import com.vzh.docspaceportal.presentation.screens.loginScreen.LoginScreenViewModel
 import com.vzh.docspaceportal.presentation.screens.mainActivity.MainActivityViewModel
 import com.vzh.docspaceportal.presentation.screens.profileScreen.ProfileScreenViewModel
@@ -52,6 +54,7 @@ val appModule = module {
     viewModel { RoomsScreenViewModel(get(), get()) }
     viewModel { TrashScreenViewModel(get(), get()) }
     viewModel { ProfileScreenViewModel(get(), get(), get()) }
+    viewModel { FolderScreenViewModel(get(), get()) }
 
     single {
         DataStoreFactory.create(

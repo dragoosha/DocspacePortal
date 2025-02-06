@@ -20,8 +20,9 @@ import com.vzh.docspaceportal.presentation.screens.documentsScreen.DocumentsUiIt
 fun <T : FilesUiItem> FilesLayout(
     modifier: Modifier = Modifier,
     state: T,
-    onFolderClicked: (Int) -> Unit,
-    onFileClicked: () -> Unit
+    onFolderClicked: (Int, String) -> Unit,
+    onFileClicked: () -> Unit,
+    label: String
 ) {
 
     LazyColumn(
@@ -30,7 +31,7 @@ fun <T : FilesUiItem> FilesLayout(
     ) {
         item { Spacer(modifier = modifier.height(100.dp)) }
 
-        item { Text(text = stringResource(R.string.documents), style= MaterialTheme.typography.headlineMedium) }
+        item { Text(text = label, style= MaterialTheme.typography.headlineMedium) }
 
         item { Spacer(modifier = modifier.height(25.dp)) }
 
@@ -39,7 +40,7 @@ fun <T : FilesUiItem> FilesLayout(
                 CustomItem(
                     text = it.title,
                     icon = R.drawable.baseline_folder_24,
-                    onItemClicked = {onFolderClicked(it.folderId)}
+                    onItemClicked = {onFolderClicked(it.folderId, it.title)}
                 )
             }
         }
