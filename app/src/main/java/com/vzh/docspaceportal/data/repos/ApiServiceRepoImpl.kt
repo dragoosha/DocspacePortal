@@ -1,5 +1,6 @@
 package com.vzh.docspaceportal.data.repos
 
+import android.util.Log
 import com.vzh.docspaceportal.data.mappers.toDomainModel
 import com.vzh.docspaceportal.data.models.AuthRequestParams
 import com.vzh.docspaceportal.data.remote.ApiService
@@ -36,6 +37,7 @@ class ApiServiceRepoImpl(
                     )
                 }
             } catch (e: Exception) {
+                Log.e("AUTH", e.message.toString())
                 Result.Error(
                     message = "Bad request: ${e.message}"
                 )

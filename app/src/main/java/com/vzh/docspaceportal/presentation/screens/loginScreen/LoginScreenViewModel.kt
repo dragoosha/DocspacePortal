@@ -25,7 +25,7 @@ class LoginScreenViewModel(
             initialValue = state
         )
 
-    override fun signUp() {
+    override fun signUp(context: Context) {
         viewModelScope.launch {
             try {
                 val result = authUseCase(
@@ -33,6 +33,7 @@ class LoginScreenViewModel(
                     loginState.value.uiItem.email,
                     loginState.value.uiItem.password
                 )
+
                 updateState {
                     when (result) {
                         is Result.Success -> {
@@ -45,6 +46,7 @@ class LoginScreenViewModel(
                                     )
                                 }
                             }
+
                             copy(
                                 isAuthenticating = false,
                                 authenticationSucceed = true,
@@ -52,10 +54,16 @@ class LoginScreenViewModel(
                             )
                         }
                         is Result.Error -> {
+                            val errorMessage = if (result.message?.contains("401") == true) {
+                                context.getString(R.string.check_credits)
+                            } else {
+                                context.getString(R.string.unknown_error)
+                            }
+
                             copy(
+                                authErrorMessage = errorMessage,
                                 isAuthenticating = false,
-                                authenticationSucceed = false,
-                                authErrorMessage = result.message
+                                authenticationSucceed = false
                             )
                         }
                     }
@@ -65,12 +73,13 @@ class LoginScreenViewModel(
                     copy(
                         isAuthenticating = false,
                         authenticationSucceed = false,
-                        authErrorMessage = e.message ?: ""
+                        authErrorMessage = e.message ?: "Unknown error"
                     )
                 }
             }
         }
     }
+
 
     override fun validateAndLogin(context: Context) {
         val currentState = loginState.value.uiItem
@@ -80,7 +89,7 @@ class LoginScreenViewModel(
         val passwordError = if (isValidPassword(currentState.password)) null else context.getText(R.string.correct_password).toString()
 
         if (portalError == null && emailError == null && passwordError == null) {
-            signUp()
+            signUp(context)
         } else {
             updateState {
                 copy(
@@ -139,7 +148,7 @@ class LoginScreenViewModel(
 }
 
 interface LoginController {
-    fun signUp()
+    fun signUp(context: Context)
     fun validateAndLogin(context: Context)
     fun updatePortal(input: String)
     fun updateEmail(input: String)
