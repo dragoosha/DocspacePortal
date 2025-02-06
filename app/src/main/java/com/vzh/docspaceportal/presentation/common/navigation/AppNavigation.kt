@@ -6,6 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.vzh.docspaceportal.presentation.common.navigation.graphs.authNavGraph
+import com.vzh.docspaceportal.presentation.common.navigation.graphs.mainNavGraph
+import com.vzh.docspaceportal.presentation.common.navigation.graphs.splashNavGraph
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -19,6 +21,8 @@ fun AppNavigation(
         startDestination = AppRoute.Login.route
     ) {
         authNavGraph(navController)
+        mainNavGraph(navController)
+        splashNavGraph(navController, token)
     }
 
 }
