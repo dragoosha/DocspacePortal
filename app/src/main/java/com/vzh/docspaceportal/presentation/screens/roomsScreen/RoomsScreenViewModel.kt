@@ -5,13 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.vzh.docspaceportal.domain.common.Result
 import com.vzh.docspaceportal.domain.usecase.GetRoomsUseCase
 import com.vzh.docspaceportal.presentation.common.models.FileUi
+import com.vzh.docspaceportal.presentation.common.models.FilesUiItem
 import com.vzh.docspaceportal.presentation.common.models.FolderUi
 import com.vzh.docspaceportal.presentation.common.utils.StatefulViewModel
 import com.vzh.docspaceportal.presentation.common.utils.UserSettings
-import com.vzh.docspaceportal.presentation.common.utils.toUiDocuments
 import com.vzh.docspaceportal.presentation.common.utils.toUiRooms
-import com.vzh.docspaceportal.presentation.screens.documentsScreen.DocumentsUiItem
-import com.vzh.docspaceportal.presentation.screens.documentsScreen.DocumentsUiState
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
@@ -56,6 +54,6 @@ data class RoomsUiState(
 )
 
 data class RoomsUiItem (
-    val folders: List<FolderUi>? = null,
-    val files: List<FileUi>? = null
-)
+    override val folders: List<FolderUi>? = null,
+    override val files: List<FileUi>? = null
+): FilesUiItem

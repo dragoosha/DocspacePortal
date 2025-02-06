@@ -13,12 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.vzh.docspaceportal.R
+import com.vzh.docspaceportal.presentation.common.models.FilesUiItem
 import com.vzh.docspaceportal.presentation.screens.documentsScreen.DocumentsUiItem
 
 @Composable
-fun FilesLayout(
+fun <T : FilesUiItem> FilesLayout(
     modifier: Modifier = Modifier,
-    state: DocumentsUiItem,
+    state: T,
     onFolderClicked: (Int) -> Unit,
     onFileClicked: () -> Unit
 ) {

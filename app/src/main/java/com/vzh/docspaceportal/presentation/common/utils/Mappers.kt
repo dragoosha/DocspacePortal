@@ -7,9 +7,17 @@ import com.vzh.docspaceportal.presentation.common.models.FileUi
 import com.vzh.docspaceportal.presentation.common.models.FolderUi
 import com.vzh.docspaceportal.presentation.screens.documentsScreen.DocumentsUiItem
 import com.vzh.docspaceportal.presentation.screens.roomsScreen.RoomsUiItem
+import com.vzh.docspaceportal.presentation.screens.trashScreen.TrashUiItem
 
 fun FilesModel.toUiDocuments() : DocumentsUiItem {
     return DocumentsUiItem(
+        folders = this.folders?.map { it.toUi() },
+        files = this.files?.map { it.toUi() }
+    )
+}
+
+fun FilesModel.toUiTrash() : TrashUiItem {
+    return TrashUiItem(
         folders = this.folders?.map { it.toUi() },
         files = this.files?.map { it.toUi() }
     )

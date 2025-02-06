@@ -1,27 +1,27 @@
-package com.vzh.docspaceportal.presentation.screens.documentsScreen
+package com.vzh.docspaceportal.presentation.screens.trashScreen
 
 import androidx.datastore.core.DataStore
 import androidx.lifecycle.viewModelScope
 import com.vzh.docspaceportal.domain.common.Result
-import com.vzh.docspaceportal.domain.usecase.MyDocumentsUseCase
+import com.vzh.docspaceportal.domain.usecase.GetTrashUseCase
 import com.vzh.docspaceportal.presentation.common.models.FileUi
 import com.vzh.docspaceportal.presentation.common.models.FilesUiItem
 import com.vzh.docspaceportal.presentation.common.models.FolderUi
 import com.vzh.docspaceportal.presentation.common.utils.StatefulViewModel
 import com.vzh.docspaceportal.presentation.common.utils.UserSettings
-import com.vzh.docspaceportal.presentation.common.utils.toUiDocuments
+import com.vzh.docspaceportal.presentation.common.utils.toUiTrash
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class DocumentsScreenViewModel(
-    private val myDocumentsUseCase: MyDocumentsUseCase,
+class TrashScreenViewModel(
+    private val getTrashUseCase: GetTrashUseCase,
     private val dataStore: DataStore<UserSettings>
-): StatefulViewModel<DocumentsUiState>(DocumentsUiState()) {
+): StatefulViewModel<TrashUiState>(TrashUiState()) {
 
-    val documentsUiState: StateFlow<DocumentsUiState>
+    val trashUiState: StateFlow<TrashUiState>
         get() = stateFlow.stateIn(
             scope = viewModelScope,
             started = SharingStarted.Eagerly,
@@ -32,14 +32,14 @@ class DocumentsScreenViewModel(
         viewModelScope.launch {
             val userSettings = dataStore.data.first()
 
-            val result = myDocumentsUseCase(userSettings.portal, userSettings.token)
+            val result = getTrashUseCase(userSettings.portal, userSettings.token)
             updateState {
                 when(result) {
                     is Result.Error -> {
                         copy(errorMessage = result.message)
                     }
                     is Result.Success -> {
-                        copy(uiItem = result.data?.toUiDocuments() ?: DocumentsUiItem())
+                        copy(uiItem = result.data?.toUiTrash() ?: TrashUiItem())
                     }
                 }
             }
@@ -48,12 +48,12 @@ class DocumentsScreenViewModel(
     }
 }
 
-data class DocumentsUiState(
-    val uiItem: DocumentsUiItem = DocumentsUiItem(),
+data class TrashUiState(
+    val uiItem: TrashUiItem = TrashUiItem(),
     val errorMessage: String? = null
 )
 
-data class DocumentsUiItem (
+data class TrashUiItem (
     override val folders: List<FolderUi>? = null,
     override val files: List<FileUi>? = null
-) : FilesUiItem
+): FilesUiItem
