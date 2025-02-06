@@ -76,5 +76,8 @@ dependencies {
 
     //Coil
     implementation(libs.coil.compose)
+    implementation("io.coil-kt.coil3:coil-network-ktor3:3.1.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0") // Only available on Android/JVM.
+
 
 }

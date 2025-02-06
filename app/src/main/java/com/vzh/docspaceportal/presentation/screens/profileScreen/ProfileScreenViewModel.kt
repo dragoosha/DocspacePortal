@@ -49,6 +49,17 @@ class ProfileScreenViewModel(
         }
     }
 
+    fun logOut() {
+        viewModelScope.launch {
+            val userSettings = dataStore.data.first()
+            logOutUseCase(portal = userSettings.portal, token = userSettings.token)
+
+            dataStore.updateData {
+                UserSettings()
+            }
+        }
+    }
+
 }
 
 data class ProfileUiState(
