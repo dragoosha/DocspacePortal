@@ -11,31 +11,43 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.vzh.docspaceportal.R
 import com.vzh.docspaceportal.presentation.common.components.CustomButton
 import com.vzh.docspaceportal.presentation.common.components.CustomEditText
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
     navController: NavController
 ) {
-
+    val viewModel: LoginScreenViewModel = koinViewModel()
+    val state = viewModel.loginState.collectAsState().value
+    val context = LocalContext.current
+    LoginLayout(
+        modifier = modifier,
+        state = state.uiItem,
+        controller = viewModel,
+        onButtonLoginClicked = {
+            viewModel.validateAndLogin(context)
+        }
+    )
 }
 
 @Composable
 fun LoginLayout(
     modifier: Modifier = Modifier,
     state: LoginUiItem,
-    onPortalValueChanged: (String) -> Unit,
-    onEmailValueChanged: (String) -> Unit,
-    onPasswordValueChanged: (String) -> Unit,
+    controller: LoginScreenViewModel,
     onButtonLoginClicked: () -> Unit
 ) {
     Column(
@@ -57,30 +69,51 @@ fun LoginLayout(
         CustomEditText(
             modifier = modifier.clip(shape = RoundedCornerShape(20.dp)),
             value = state.portal,
-            onValueChange = onPortalValueChanged,
+            onValueChange = { controller.updatePortal(it) },
             hint = R.string.portal,
             icon = R.drawable.ic_launcher_foreground
         )
+        if (state.portalError != null) {
+            Text(
+                text = state.portalError,
+                color = Color.Red,
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
 
         Spacer(modifier = modifier.height(20.dp))
 
         CustomEditText(
             modifier = modifier.clip(shape = RoundedCornerShape(20.dp)),
             value = state.email,
-            onValueChange = onEmailValueChanged,
+            onValueChange = {controller.updateEmail(it)},
             hint = R.string.email,
             icon = R.drawable.ic_launcher_foreground
         )
+        if (state.emailError != null) {
+            Text(
+                text = state.emailError,
+                color = Color.Red,
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
 
         Spacer(modifier = modifier.height(20.dp))
 
         CustomEditText(
             modifier = modifier.clip(shape = RoundedCornerShape(20.dp)),
             value = state.password,
-            onValueChange = onPasswordValueChanged,
+            onValueChange = { controller.updatePassword(it) },
             hint = R.string.password,
             icon = R.drawable.ic_launcher_foreground
         )
+        if (state.passwordError != null) {
+            Text(
+                text = state.passwordError,
+                color = Color.Red,
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
 
         Spacer(modifier = modifier.height(20.dp))
 
@@ -88,6 +121,5 @@ fun LoginLayout(
             onButtonClicked = onButtonLoginClicked,
             text = R.string.login
         )
-
     }
 }

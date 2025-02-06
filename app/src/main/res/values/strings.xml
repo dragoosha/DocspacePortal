@@ -5,4 +5,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="correct_portal">Incorrect portal format</string>
+    <string name="correct_email">Incorrect email</string>
+    <string name="correct_password">Password should be at least 8 symbols</string>
 </resources>
